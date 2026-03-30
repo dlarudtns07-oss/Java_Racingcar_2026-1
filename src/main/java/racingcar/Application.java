@@ -1,9 +1,5 @@
 package racingcar;
 
-public class Application {
-}
-package racingcar;
-
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
@@ -13,7 +9,8 @@ import java.util.StringJoiner;
 public class Application {
     public static void main(String[] args) {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        String[] names = Console.readLine().split(",");
+        String inputNames = Console.readLine();
+        String[] names = inputNames.split(",");
         List<Car> cars = createCars(names);
 
         System.out.println("시도할 회수는 몇회인가요?");
@@ -39,7 +36,9 @@ public class Application {
     private static int parseTryCount(String input) {
         try {
             int count = Integer.parseInt(input);
-            if (count < 0) throw new IllegalArgumentException();
+            if (count < 0) {
+                throw new IllegalArgumentException("시도 회수는 0 이상이어야 합니다.");
+            }
             return count;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("숫자만 입력 가능합니다.");
